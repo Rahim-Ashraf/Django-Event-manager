@@ -6,18 +6,25 @@ class Event(models.Model):
     description = models.TextField()
     date = models.DateField(auto_now=False, auto_now_add=False)
     time = models.TimeField(auto_now=False, auto_now_add=False)
-    location = models.TextField(max_length=100)
+    location = models.CharField(max_length=100)
     category = models.ForeignKey(
         "Category",
         on_delete=models.SET_NULL,
-        null=True
+        null=True,
+        blank=True
     )
+    def __str__(self):
+        return self.name
 
 class Participant(models.Model):
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=254)
-    events = models.ManyToManyField("Event", related_name="Participants")
+    events = models.ManyToManyField("Event", related_name="participants")
+    def __str__(self):
+        return self.name
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
+    def __str__(self):
+        return self.name

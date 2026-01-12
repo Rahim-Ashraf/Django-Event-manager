@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Manager</title>
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
+</head>
+<body class="p-4">
+    <header>
+        <nav>nav</nav>
+    </header>
+    <main class="space-y-8">
+        <section class="rounded-xl bg-rose-50 p-8 shadow">
+            <h2 class="text-center text-2xl font-semibold mb-8">All Events</h2>
+            <div class="grid grid-cols-3 gap-4">
+                {% for event in events %}
+                    <a href="{% url 'specific_event' event.id %}">
+                    <div class="p-4 rounded bg-white col-span-3 md:col-span-2 lg:col-span-1">
+                        <p>Event: {{event.name}}</p>
+                        <p>Category: {{event.category}}</p>
+                        <p>Total Participants: {{event.total_p}}</p>
+                    </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>
