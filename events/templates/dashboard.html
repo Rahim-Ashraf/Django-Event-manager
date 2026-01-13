@@ -8,8 +8,41 @@
     <title>Document</title>
     <link rel="stylesheet" href="{% static "css/output.css" %}">
 </head>
-<body>
-    <h1 class="bg-red-500">Hello workds</h1>
-     {{context}}
+<body class="p-4">
+    {% include "nav.html" %}
+    <section class="grid grid-cols-4 gap-4 p-4 mb-8 text-center">
+        <div class="bg-rose-50 rounded p-4 col-span-4 lg:col-span-1">
+            <p>Total Participants</p>
+            <h4 class="text-xl font-semibold">{{total_participants}}</h4>
+        </div>
+        <a href="{% url "organizer_dashboard" %}?listing=total">
+            <div class="bg-rose-50 rounded p-4 col-span-4 lg:col-span-1">
+                <p>Total Events</p>
+                <h4 class="text-xl font-semibold">{{total_events}}</h4>
+            </div>
+        </a>
+        <a href="{% url "organizer_dashboard" %}?listing=upcoming">
+            <div class="bg-rose-50 rounded p-4 col-span-4 lg:col-span-1">
+                <p>Upcoming Events</p>
+                <h4 class="text-xl font-semibold">{{total_upcoming_events}}</h4>
+            </div>
+        </a>
+        <a href="{% url "organizer_dashboard" %}?listing=past">
+            <div class="bg-rose-50 rounded p-4 col-span-4 lg:col-span-1">
+                <p>Past Eventss</p>
+                <h4 class="text-xl font-semibold">{{total_past_events}}</h4>
+            </div>
+        </a>
+    </section>
+    <section class="p-4">
+        <h1 class="text-3xl font-semibold text-center">{{listing_title}}</h1>
+        {% for event in events %}
+            <a href="{% url "organizer_dashboard" %}?listing=total">
+                <div>
+                    {{event}}
+                </div>
+            </a>
+        {% endfor %}
+    </section>
 </body>
 </html>

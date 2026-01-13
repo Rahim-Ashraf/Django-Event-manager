@@ -1,16 +1,25 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Participant form</title>
+    <link rel="stylesheet" href="{% static "css/output.css" %}">
 </head>
-<body>
-    <form action="" method="post">
+<body class="p-4">
+    {% for message in messages %}
+    {% if 'success' in message.tags or 'error' in message.tags %}
+        <p class="text-right text-amber-500">{{message}}</p>
+    {% endif %}
+    {% endfor %}
+    
+    {% include "nav.html" %}
+    <form method="post" class="max-w-[40rem] w-full mx-auto">
         {% csrf_token %}
 
         {{participant_form}}
-        <button type='submit'>Submit</button>
+        <button type='submit' class="bg-emerald-500 text-white p-2 rounded">Submit</button>
     </form>
 </body>
 </html>

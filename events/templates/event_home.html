@@ -9,21 +9,72 @@
     <link rel="stylesheet" href="{% static "css/output.css" %}">
 </head>
 <body class="p-4">
-    <header>
-        <nav>nav</nav>
-    </header>
+    {% for message in messages %}
+    {% if 'success' in message.tags or 'error' in message.tags %}
+        <p class="text-right text-amber-500">{{message}}</p>
+    {% endif %}
+    {% endfor %}
+
+    {% include "nav.html" %}
     <main class="space-y-8">
         <section class="rounded-xl bg-rose-50 p-8 shadow">
-            <h2 class="text-center text-2xl font-semibold mb-8">All Events</h2>
+            <div class="flex gap-4 justify-evenly mb-4">
+                <div>
+                    <h3 class="text-xl font-semibold">Filter by:</h3>
+                    <p class="font-semibold">Category</p>
+                    <form method="get" class="mb-4 flex gap-4">
+                        <select name="filter_category">
+                            <option value="">All</option>
+                            {% for category in categories %}
+                            <option value="{{category.id}}">{{category}}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="bg-amber-500 text-white py-1 px-2 rounded">Filter</button>
+                    </form>
+                    <p class="font-semibold">Date range</p>
+                    <form method="get" class="flex gap-4 items-end">
+                        <span>
+                            <p>Start date</p>
+                            <input type="date" name="filter_start_date" required>
+                        </span>
+                        <span>
+                            <p>End date</p>
+                            <input type="date" name="filter_end_date" required>
+                        </span>
+                        <button type="submit" class="bg-amber-500 text-white py-1 px-2 rounded">Filter</button>
+                    </form>
+                </div>
+                <div>
+                    <form method="get" class="mb-4">
+                        <input type="text" name="search_by_name" placeholder="Search by name"
+                        class="p-2 rounded" />
+                        <button type="submit" class="p-2 bg-amber-500 text-white rounded">Search by name</button>
+                    </form>
+                    <form method="get">
+                        <input type="text" name="search_by_location" placeholder="Search by location"
+                        class="p-2 rounded" />
+                        <button type="submit" class="p-2 bg-amber-500 text-white rounded">Search by location</button>
+                    </form>
+                </div>
+            </div>
+            <h2 class="text-center text-2xl font-semibold my-8">Events</h2>
             <div class="grid grid-cols-3 gap-4">
                 {% for event in events %}
-                    <a href="{% url 'specific_event' event.id %}">
-                    <div class="p-4 rounded bg-white col-span-3 md:col-span-2 lg:col-span-1">
+                <div class="p-4 rounded bg-white col-span-3 md:col-span-2 lg:col-span-1 flex gap-4 justify-between">
+                    <div>
                         <p>Event: {{event.name}}</p>
                         <p>Category: {{event.category}}</p>
                         <p>Total Participants: {{event.total_p}}</p>
                     </div>
-                    </a>
+                    <div class="flex flex-col gap-2">
+                        <a href="{% url 'specific_event' event.id %}" class="bg-emerald-500 p-1 rounded text-white text-center">Details</a>
+                        <a href="{% url 'update_event' event.id %}" class="bg-amber-500 p-1 rounded text-white text-center">Edit Event</a>
+                        <form action="{% url 'delete_event' event.id %}" method='POST'>
+                            {% csrf_token %}
+                            <button type='submit' class="bg-rose-500 p-1 rounded text-white text-center0">Delete Event</button>
+                        </form>
+                    </div>
+                </div>
                 {% endfor %}
             </div>
         </section>

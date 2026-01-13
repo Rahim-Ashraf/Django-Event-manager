@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <header>
+        <nav class="mb-4">
+            <ul class="font-semibold text-rose-500">
+                <il class="mr-4 lg:mr-8"><a href="{% url "home" %}">Home</a></il>
+                <il class="mr-4 lg:mr-8"><a href="{% url "organizer_dashboard" %}">Organizer dashboard</a></il>
+                <il class="mr-4 lg:mr-8"><a href="{% url "add_event" %}">Add Event</a></il>
+                <il class="mr-4 lg:mr-8"><a href="{% url "add_category" %}">Add Category</a></il>
+                <il><a href="{% url "add_participant" %}">Add Participant</a></il>
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>
