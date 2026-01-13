@@ -11,7 +11,7 @@
 <body class="p-4">
     {% include "nav.html" %}
     <div class="p-8 rounded-xl bg-rose-50 text-red shadow">
-        <p>Event Name: {{event.name}}</p>
+        <p class="text-xl">Event Name: {{event.name}}</p>
         <p>Description: {{event.description}}</p>
         <p>Date: {{event.date}}</p>
         <p>Time: {{event.time}}</p>
@@ -20,7 +20,7 @@
         <h4 class="text-xl font-bold">Participants:</h4>
         <div class="flex flex-wrap gap-4">
             {% for participant in event.participants.all %}
-                <p>{{participant}}</p>
+                <p class="p-2 border-r">{{participant}}</p>
             {% endfor %}
         </div>
     </div>

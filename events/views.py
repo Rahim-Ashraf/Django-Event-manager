@@ -122,11 +122,11 @@ def dashboard(request):
     if listing_type == 'total':
         events = Event.objects.all()
         listing_title = 'Total Events Listing'
-    if listing_type == 'upcoming':
-        events = Event.objects.filter(date__gte=datetime.now().date(), time__gt=datetime.now().time())
+    elif listing_type == 'upcoming':
+        events = Event.objects.filter(date__gt=datetime.now().date())
         listing_title = 'Upcoming Events Listing'
-    if listing_type == 'past':
-        events = Event.objects.filter(date__lte=datetime.now().date(), time__lt=datetime.now().time())
+    elif listing_type == 'past':
+        events = Event.objects.filter(date__lt=datetime.now().date())
         listing_title = 'Past Events Listing'
 
     context = {
