@@ -25,7 +25,6 @@ def event_home(request):
         events = Event.objects.filter(category=filter_category)
     elif filter_start_date and filter_end_date:
         events = Event.objects.filter(date__gte=filter_start_date, date__lte=filter_end_date)
-        print(filter_start_date)
 
     context = {
         'events': events,
@@ -118,7 +117,6 @@ def dashboard(request):
     listing_title = "Today's Events Listing"
 
     listing_type = request.GET.get('listing')
-    print(datetime.now().date(), datetime.now().time())
     if listing_type == 'total':
         events = Event.objects.all()
         listing_title = 'Total Events Listing'
